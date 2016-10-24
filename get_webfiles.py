@@ -15,14 +15,14 @@ def wget_files(filelist,outpath):
         return
 
     f = open(filelist,'r')
-    log= open(osp.splitext(filelist)[0] + '_log.txt','w')
+    log = open(osp.splitext(filelist)[0] + '_log.txt','w')
     
     
     if not osp.exists(outpath):
         os.mkdir(outpath)
         
     os.chdir(outpath)
-    print(os.curdir)
+    print(os.getcwd())
     for i in f:
         try:
             webfile = str(i.strip())
@@ -32,11 +32,13 @@ def wget_files(filelist,outpath):
             if not osp.exists(outpath + basename):
                 status = subprocess.call(cmd)
                 if status !=0:
-                    log.write('\nFailed:' + webfile)
+		    print('Failed!!!')
+		    log.write('\nFailed: wget ' + webfile)
                     continue
-                log.write('\nSuccess:' + webfile)
+                log.write('\nSuccess: wget' + webfile)
             log.flush()
-        except:
+        except Exception, e:
+	    print 'Failed, got Ecception: ', e
             log.write('\nFailed:' + webfile)
             continue        
     f.close()
