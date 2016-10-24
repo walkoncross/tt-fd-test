@@ -30,7 +30,8 @@ def wget_files(filelist,outpath):
             cmd = 'wget ' +  webfile    
             print(cmd)            
             if not osp.exists(outpath + basename):
-                status = subprocess.call(cmd)
+                #status = subprocess.call(cmd)
+		status = os.system(cmd)
                 if status !=0:
 		    print('Failed!!!')
 		    log.write('\nFailed: wget ' + webfile)
@@ -38,8 +39,8 @@ def wget_files(filelist,outpath):
                 log.write('\nSuccess: wget' + webfile)
             log.flush()
         except Exception, e:
-	    print 'Failed, got Ecception: ', e
-            log.write('\nFailed:' + webfile)
+	    print 'Failed, got Exception: ', e
+            log.write('\nFailed with Exception:' + webfile)
             continue        
     f.close()
     log.close()
