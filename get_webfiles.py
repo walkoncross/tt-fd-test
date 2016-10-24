@@ -6,8 +6,17 @@ import subprocess
 
 def wget_files(filelist,outpath):
     '''Download data'''
-    f = open(filelist,'r')
+
+	print 'filelist is: ', filelist
+	print 'output path is: ', outpath
+
+	if not osp.exist(filelist):
+		print 'Cannot find filelist: ', filelist
+		return
+	
+	f = open(filelist,'r')
     log= open(osp.splitext(filelist)[0]+'_log.txt','w')
+
     
     if not osp.exists(outpath):
         os.mkdir(outpath)
