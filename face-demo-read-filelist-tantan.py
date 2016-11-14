@@ -31,7 +31,7 @@ NETS = {'vgg16': ('VGG16',
         'zf': ('ZF',
                   'ZF_faster_rcnn_final.caffemodel')}
 
-g_fp = open('./tantan-fd-1000-rlt.txt', 'w')
+g_fp = open('./tantan-fd-1000-rlt.txt', 'w+')
 
 def print_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
@@ -181,7 +181,7 @@ def demo(net, im_file, thresh=0.8, fp_rlt=None):
         #vis_detections(im, cls, dets, thresh=CONF_THRESH)
         
         if dets is not None:
-            g_fp.write(('{:s}\t{:d}\t{:.3f}\n').format( im_file, len(dets), len(dets), np.max(dets[:, -1]) ))
+            g_fp.write(('{:s}\t{:d}\t{:.3f}\n').format( im_file, len(dets), np.max(dets[:, -1]) ))
         else:
             g_fp.write(('{:s}\t{:d}\t{:.3f}\n').format( im_file, 0, 0))
 

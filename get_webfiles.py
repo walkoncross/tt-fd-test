@@ -30,7 +30,7 @@ def wget_files(filelist,outpath):
             if '.' not in basename[-5:]:
 				basename = basename+'.jpg'
     
-            cmd = 'wget -o '+ basename  + ' ' + webfile 
+            cmd = 'wget -O '+ basename  + ' ' + webfile 
             print(cmd)            
             if not osp.exists(outpath + basename):
                 #status = subprocess.call(cmd)
