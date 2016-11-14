@@ -2,7 +2,7 @@
 #coding:utf-8
 import os
 import os.path as osp
-import subprocess
+#import subprocess
 
 def wget_files(filelist,outpath):
     '''Download data'''
@@ -27,21 +27,27 @@ def wget_files(filelist,outpath):
         try:
             webfile = str(i.strip())
             basename = osp.basename(webfile)
-            cmd = 'wget ' +  webfile    
+            if '.' not in basename[-5:]:
+				basename = basename+'.jpg'
+    
+            cmd = 'wget -o '+ basename  + ' ' + webfile 
             print(cmd)            
             if not osp.exists(outpath + basename):
                 #status = subprocess.call(cmd)
-		status = os.system(cmd)
+                status = os.system(cmd)
                 if status !=0:
-		    print('Failed!!!')
-		    log.write('\nFailed: wget ' + webfile)
+                    print('Failed!!!')
+                    log.write('\nFailed: wget ' + webfile)
                     continue
+                
                 log.write('\nSuccess: wget' + webfile)
-            log.flush()
+                log.flush()
         except Exception, e:
-	    print 'Failed, got Exception: ', e
-            log.write('\nFailed with Exception:' + webfile)
-            continue        
+                print 'Failed, got Exception: ', e
+                print webfile+'****ENDL'
+                log.write('\nFailed with Exception:' + webfile)
+                continue   
+        
     f.close()
     log.close()
 
